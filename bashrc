@@ -67,6 +67,7 @@ colr=(
 source ~/.git-prompt.sh
 if [ "$color_prompt"=yes ]; then
     PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h"
+    PS1="$PS1 ${colr['gry']}\@"
     PS1="$PS1 ${colr['grn']}\$(__git_ps1 '(%s)')${colr['def']}:\n"
     PS1="$PS1  ${colr['gry']}\w \$${colr['lgy']} "
 else
@@ -76,8 +77,9 @@ unset color_prompt force_color_prompt
 
 # If we're doing SSH, change background Sojo
 if [ -n "$SSH_CLIENT" ]; then
-    echo "Hey I should print"
-    echo -ne "\033]11;#53186f\007"
+    clear
+    echo "You're using SSH!"; echo; echo
+    PS1="$PS1${colr['org']}"
 fi
 
 # If this is an xterm set the title to user@host:dir
@@ -92,7 +94,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto; echo'
+    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
