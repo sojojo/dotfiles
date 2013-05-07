@@ -136,12 +136,14 @@ export PATH=$PATH:~/.npm/uglify-js/1.3.3/package/bin
 # Personal Sojo
 source ~/.private/wt
 
+alias mac='ifconfig | grep "HWaddr"'
+alias ipaddr='ifconfig | grep "inet addr" -B 1'
 alias diff='vim -d'  # use vim for diff
 alias install='sudo apt-get install'
 alias update='sudo apt-get update && sudo apt-get upgrade'
-alias mailme='mail -s mailthis pasjoman@gmail.com < '
+#alias mailme='mail -s mailthis pasjoman@gmail.com < '
 # find things in python specifically
-alias greppyemail="find . | grep -v [.]svn | grep [.]py$ | xargs grep "
+alias greppy="find . | grep [.]py$ | xargs grep " # search within py
 alias go='xdg-open' # opens dir/file with registered application
 alias findy='find . -name'
 alias targz='tar -xzvf'
