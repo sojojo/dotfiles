@@ -179,10 +179,10 @@ set showmode                    " Indicates when in Insert, Edit mode, etc.
 set ruler
 
 " Tab options
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
+"set tabstop=4
+"set shiftwidth=4
+"set expandtab
+"set smartindent
 
 " Search options
 set ignorecase		        " ignore case on searches
@@ -211,6 +211,12 @@ set backspace=indent,eol,start
 
 " Sojojo config
 
+" AUTOCOMPLETE
+" Python - Pydiction
+filetype plugin on
+let g:pydiction_location='/home/sojojo/dotfiles/vim/bundle/pydiction/complete-dict'
+
 " COLOR SCHEMES
 " Python colorscheme
 autocmd FileType python colorscheme molokai
+
