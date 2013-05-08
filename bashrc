@@ -58,26 +58,31 @@ colr=(
 ['lbl']="\[\033[38;05;81m\]"
 ['org']="\[\033[38;05;172m\]"
 ['grn']="\[\033[38;05;190m\]"
+['red']="\[\033[38;05;160m\]"
 ['gry']="\[\033[38;05;238m\]"
 ['lgy']="\[\033[38;05;249m\]"
 )
 
 source ~/.git-prompt.sh
 if [ "$color_prompt"=yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h"
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
+    PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h:\e[1m\w\e[21m"
     PS1="$PS1 ${colr['gry']}\@"
     PS1="$PS1 ${colr['grn']}\$(__git_ps1 '(%s)')${colr['def']}:\n"
-    PS1="$PS1  ${colr['gry']}\w \$${colr['lgy']} "
+    PS1="$PS1  ${colr['gry']}\W \$${colr['lgy']} "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w \$(__git_ps1 "(%s)") \$ '
 fi
 unset color_prompt force_color_prompt
 
-# If we're doing SSH, change background Sojo
+# Sojojo - If we're doing SSH, change coloration
 if [ -n "$SSH_CLIENT" ]; then
     clear
-    echo "You're using SSH!"; echo; echo
-    PS1="$PS1${colr['org']}"
+    echo "Now accessing Sojojo's RocketSpace computer via SSH."
+    echo "Please wipe your feet before entering.."; echo; echo
+    # invert prompt
+    # PS1="\e[7m$PS1\e[0m"
+    PS1="${colr['red']}\e[1mSojoSSH\e[0m $PS1"
 fi
 
 # If this is an xterm set the title to user@host:dir
@@ -134,7 +139,7 @@ export PATH=$PATH:~/.npm/uglify-js/1.3.3/package/bin
 # Personal Sojo
 source ~/.private/wt
 
-alias mac='ifconfig | grep "HWaddr"'
+alias macaddr='ifconfig | grep "HWaddr"'
 alias ipaddr='ifconfig | grep "inet addr" -B 1'
 alias diff='vim -d'  # use vim for diff
 alias install='sudo apt-get install'
@@ -181,8 +186,6 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 ## Get server cpu info ##
 alias cpuinfo='lscpu'
-## older system use /proc/cpuinfo ##
-##alias cpuinfo='less /proc/cpuinfo' ##
 ## get GPU ram on desktop / laptop##
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 
