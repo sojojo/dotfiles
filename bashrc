@@ -105,7 +105,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls --color'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -154,6 +154,11 @@ esac
 
 # Personal Sojo
 source ~/.private/wt
+dev_colors=*=37:*.py=00\;32:*pyc=00\;30:*\~=09\;10:*.css=04\;91:*.js=00\;33:\
+*.mako=00\;91:*.sql=00\;35:*.sh=00\;44:*.ini=00\;93:*rc=04\;93:ex=37\;100:\
+*.swp=01\;31:
+doc_colors=*.txt=90:*.pdf=90:*.doc=90:*.xls=90:*.csv=90:
+export LS_COLORS=$LS_COLORS$dev_colors$doc_colors
 
 alias macaddr='ifconfig | grep "HWaddr"'
 alias ipaddr='ifconfig | grep "inet addr" -B 1'
