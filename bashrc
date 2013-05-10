@@ -67,11 +67,17 @@ colr=(
 
 source ~/.git-prompt.sh
 if [ "$color_prompt"=yes ]; then
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
+    PROMPT_COMMAND='echo; history -a;echo -en "\033[m\033[38;5;2m"$(( `sed -n \
+    "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" \
+    /proc/meminfo`/1024))"\033[38;5;22m/"$((`sed -n "s/MemTotal:[\t \
+    ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024 ))MB"\t\033[m\033[38;5;55m$(< \
+    /proc/loadavg)\033[m";echo'
+    # PROMPT_COMMAND='eval BASE="$(basename "$(pwd)")"; echo $BASE'
+    # PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
     PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h:\e[1m\w\e[21m"
     PS1="$PS1 ${colr['gry']}\@"
     PS1="$PS1 ${colr['grn']}\$(__git_ps1 '(%s)')${colr['def']}:\n"
-    PS1="$PS1  ${colr['gry']}\W \$${colr['lgy']} "
+    PS1="$PS1  ${colr['gry']}\W\$${colr['lgy']} "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w \$(__git_ps1 "(%s)") \$ '
 fi
@@ -134,9 +140,17 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:~/.npm/less/1.3.3/package/bin
-export PATH=$PATH:~/.npm/clean-css/0.9.1/package/bin
-export PATH=$PATH:~/.npm/uglify-js/1.3.3/package/bin
+case "$PATH" in
+'less/1.3.3')
+    export PATH=$PATH:~/.npm/less/1.3.3/package/bin
+    ;;
+'clean-css')
+    export PATH=$PATH:~/.npm/clean-css/0.9.1/package/bin
+    ;;
+'uglify-js')
+    export PATH=$PATH:~/.npm/uglify-js/1.3.3/package/bin
+    ;;
+esac
 
 # Personal Sojo
 source ~/.private/wt
