@@ -1,0 +1,11 @@
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+[user]
+    name = Alex Sjoman
+    email = sojojoid@gmail.com
+
+[alias]
+    co = checkout

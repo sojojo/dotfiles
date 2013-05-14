@@ -75,7 +75,7 @@ if [ "$color_prompt"=yes ]; then
     PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h:\e[1m\w\e[21m"
     PS1="$PS1 ${colr['gry']}\@"
     PS1="$PS1 ${colr['grn']}\$(__git_ps1 '(%s)')${colr['def']}:\n"
-    PS1="$PS1  ${colr['gry']}\W\$${colr['lgy']} "
+    PS1="$PS1  ${colr['gry']}\W\e[1m\$\e[21m${colr['lgy']} "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w \$(__git_ps1 "(%s)") \$ '
 fi

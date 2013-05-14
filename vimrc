@@ -179,10 +179,10 @@ set showmode                    " Indicates when in Insert, Edit mode, etc.
 set ruler
 
 " Tab options
-"set tabstop=4
+set tabstop=2
 "set shiftwidth=4
-"set expandtab
-"set smartindent
+set expandtab
+set smartindent
 
 " Search options
 set ignorecase		        " ignore case on searches
