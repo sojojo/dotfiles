@@ -42,12 +42,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
     else
-	color_prompt=
+  color_prompt=
     fi
 fi
 
@@ -65,6 +65,7 @@ colr=(
 
 source ~/.git-prompt.sh
 if [ "$color_prompt"=yes ]; then
+    # show machine stats above the prompt - memory use, processes, etc.
     PROMPT_COMMAND='echo; history -a;echo -en "\033[m\033[38;5;2m"$(( `sed -n \
     "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" \
     /proc/meminfo`/1024))"\033[38;5;22m/"$((`sed -n "s/MemTotal:[\t \
@@ -72,10 +73,10 @@ if [ "$color_prompt"=yes ]; then
     /proc/loadavg)\033[m";echo'
     # PROMPT_COMMAND='eval BASE="$(basename "$(pwd)")"; echo $BASE'
     # PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
-    PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h:\e[1m\w\e[21m"
+    PS1="${debian_chroot:+($debian_chroot)}${colr['lbl']}\u@\h:\e[1m\w\e[0m"
     PS1="$PS1 ${colr['gry']}\@"
     PS1="$PS1 ${colr['grn']}\$(__git_ps1 '(%s)')${colr['def']}:\n"
-    PS1="$PS1  ${colr['gry']}\W\e[1m\$\e[21m${colr['lgy']} "
+    PS1="$PS1  ${colr['gry']}\W\$${colr['lgy']} "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w \$(__git_ps1 "(%s)") \$ '
 fi
@@ -85,16 +86,16 @@ unset color_prompt force_color_prompt
 if [ -n "$SSH_CLIENT" ]; then
     clear
     echo "Now accessing Sojojo's RocketSpace computer via SSH."
-    echo "Please wipe your feet before entering.."; echo; echo
-    # invert prompt
-    # PS1="\e[7m$PS1\e[0m"
+    echo "Please wipe your feet before entering.."; echo; echo;
     PS1="${colr['red']}\e[1mSojoSSH\e[0m $PS1"
+    # PS1="\e[7m$PS1\e[0m"  # invert prompt
 fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+"xterm*"|"rxvt*")
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    # PS1="${debian_chroot:+($debian_chroot)}\e[0m$PS1"
     ;;
 *)
     ;;
@@ -109,9 +110,9 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+# if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#     . /etc/bash_completion
+# fi
 
 case "$PATH" in
 'less/1.3.3')
@@ -128,8 +129,8 @@ esac
 # Personal Sojo
 source ~/.private/wt
 dev_colors=*=37:*.py=00\;32:*pyc=00\;30:*\~=09\;10:*.css=04\;91:*.js=00\;33:\
-*.mako=00\;91:*.sql=00\;35:*.sh=00\;44:*.ini=00\;93:*rc=04\;93:ex=37\;100:\
-*.swp=01\;31:
+*.mako=00\;91:*.sql=00\;35:*.ini=00\;93:*.conf=00\;93:*.cfg=00\;93:*rc=04\;93:\
+ex=37\;100:*.swp=01\;31:*.sh=00\;44:
 doc_colors=*.txt=90:*.pdf=90:*.doc=90:*.xls=90:*.csv=90:
 export LS_COLORS=$LS_COLORS$dev_colors$doc_colors
 
